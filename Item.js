@@ -8,8 +8,8 @@ class Item extends React.Component {
         <View style={styles.centered}>
             <Image source={img} style={styles.image}></Image>
             <View>
-                <Text style={{color: 'white', fontSize: 20}}>{this.props.longitude}</Text>
-                <Text style={{color: 'white', fontSize: 20}}>{this.props.latitude}</Text>
+                <Text style={{color: 'white', fontSize: 20}}>longitude: {this.props.longitude}</Text>
+                <Text style={{color: 'white', fontSize: 20}}>latitude: {this.props.latitude}</Text>
             </View>
         </View>)
     }

@@ -21,7 +21,7 @@ class Screen2 extends React.Component {
                 <Pressable style={styles.buttons} onPress={() => this.props.navigation.navigate('details', {points: this.state.points})}><Text style={styles.text}>GO TO MAP</Text></Pressable> 
                 <FlatList
                     data={this.state.points}
-                    renderItem={({item}) => <Item latitude={item.latitude} longitude={item.longitude} goNext={() => this.props.navigation.navigate('details', {points: item})} />}
+                    renderItem={({item}) => <Item latitude={item.coords.latitude} longitude={item.coords.longitude} goNext={() => this.props.navigation.navigate('details', {points: item})} />}
                     keyExtractor={item => item.id}
                 />
             </View>)
@@ -29,8 +29,9 @@ class Screen2 extends React.Component {
     newPoint = async() => {
         let crd = await Location.getCurrentPositionAsync({})
         this.setState({
-            points: [...points, crd]
+            points: [...this.state.points, crd]
         })
+        console.log(this.state.points)
     }
     delAll = () => {
         this.setState({
