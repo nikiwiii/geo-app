@@ -17,7 +17,7 @@ class Screen3 extends React.Component {
         >
             <FlatList
                 data={this.props.route.params.points}
-                renderItem={({item}) => <Marker latitude={item.latitude} longitude={item.longitude} />}
+                renderItem={({item}) => <Marker coordinate={{ latitude: item.coords.latitude, longitude: item.coords.longitude, }} title={"pos"} description={"opis"}/>} 
                 keyExtractor={item => item.id}
             />
         </MapView>
