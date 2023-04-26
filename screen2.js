@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Text, FlatList, ActivityIndicator } from 'react-native';
 import Item from './Item'
-import * as Location from "expo-location"; 
+import * as Location from 'expo-location'
 
 class Screen2 extends React.Component {
     constructor(props) {
+      Location.requestForegroundPermissionsAsync();
       super(props);
       this.state = {
-        points: []
+        points: [],
+        loading: false
       }
     }
     goToScr3 = (el) => {
@@ -15,23 +17,29 @@ class Screen2 extends React.Component {
     }
     render(){
         return(<View style={styles.centered}>
-                <ActivityIndicator size="large" color="#0000ff" />
                 <Pressable style={styles.buttons} onPress={() => this.delAll()}><Text style={styles.text}>DELETE ALL</Text></Pressable> 
                 <Pressable style={styles.buttons} onPress={() => this.newPoint()}><Text style={styles.text}>PLACE NEW POINT</Text></Pressable>
                 <Pressable style={styles.buttons} onPress={() => this.props.navigation.navigate('details', {points: this.state.points})}><Text style={styles.text}>GO TO MAP</Text></Pressable> 
+                {
+                    this.state.loading ?
+                        <ActivityIndicator size="large" color="white" />
+                        :
+                        console.log('something done')
+                }
                 <FlatList
                     data={this.state.points}
-                    renderItem={({item}) => <Item latitude={item.coords.latitude} longitude={item.coords.longitude} goNext={() => this.props.navigation.navigate('details', {points: item})} />}
+                    renderItem={({item}) => <Item key={item.id} navigation={this.props.navigation} loc={item} goNext={() => this.props.navigation.navigate('details', {points: item})} />}
                     keyExtractor={item => item.id}
                 />
             </View>)
     }
     newPoint = async() => {
+        this.setState({loading: true})
         let crd = await Location.getCurrentPositionAsync({})
         this.setState({
-            points: [...this.state.points, crd]
+            points: [...this.state.points, crd],
+            loading: false
         })
-        console.log(this.state.points)
     }
     delAll = () => {
         this.setState({
@@ -64,7 +72,7 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     text: {
-        color: 'rgba(255 255 255 / .2)',
+        color: 'rgba(255 255 255 / .5)',
         fontWeight: 'bold',
         fontSize: 32
     }
