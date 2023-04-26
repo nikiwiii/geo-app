@@ -1,27 +1,36 @@
 import React from 'react';
-import MapView, { Marker } from "react-native";
-import { FlatList, View } from 'react-native'
+import MapView, { Marker } from "react-native-maps";
+import { FlatList } from 'react-native'
 
 class Screen3 extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {}
+    }
 
     render(){
-        return(<View>
-          <MapView
+        console.log(this.props.route.params.points[0].coords.latitude)
+        return(
+            <MapView
             style={{ flex: 1 }}
             initialRegion={{
-                latitude: 50.111,
-                longitude: 20.111,
+                latitude: this.props.route.params.points[0].coords.latitude,
+                longitude: this.props.route.params.points[0].coords.longitude,
                 latitudeDelta: 0.001,
                 longitudeDelta: 0.001,
             }}
         >
-            <FlatList
-                data={this.props.route.params.points}
-                renderItem={({item}) => <Marker coordinate={{ latitude: item.coords.latitude, longitude: item.coords.longitude, }} title={"pos"} description={"opis"}/>} 
-                keyExtractor={item => item.id}
-            />
-        </MapView>
-        </View>)
+            {
+                this.props.route.params.points.map((item,i) => 
+                <Marker 
+                    coordinate=
+                    {{latitude: item.coords.latitude, 
+                    longitude: item.coords.longitude}}      
+
+                    title={'position number ' + i}
+                />)
+            }
+        </MapView>)
     }
 }
 

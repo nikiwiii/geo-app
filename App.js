@@ -10,7 +10,8 @@ const Stack = createNativeStackNavigator();
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+    }
   }
 
   render() {
@@ -25,7 +26,8 @@ class App extends React.Component {
         <Stack.Screen
           name="list"
           component={Screen2}
-          options={{title: 'User list'}}/>
+          options={{title: 'User list'}}
+          />
 
         <Stack.Screen
           name="details"

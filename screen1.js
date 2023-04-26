@@ -18,8 +18,6 @@ class Screen1 extends React.Component {
         </View>)
     }
     register = () => {
-      // console.log(this.props.route.params.addUser);
-      // this.props.route.params.addUser(this.name,this.pass)
       this.props.navigation.navigate('list')
     }
 }
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255 255 255 / .1)',
     fontWeight: 'bold',
     lineHeight: 170,
-    height: 120
+    height: 140
   },
   buttons: {
     paddingLeft: 0,

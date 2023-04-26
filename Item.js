@@ -1,17 +1,21 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, Pressable } from 'react-native';
 
 class Item extends React.Component {
-    render(){
+    render() {
         const img = require('./person.png')
-        return(
-        <View style={styles.centered}>
-            <Image source={img} style={styles.image}></Image>
-            <View>
-                <Text style={{color: 'white', fontSize: 20}}>longitude: {this.props.longitude}</Text>
-                <Text style={{color: 'white', fontSize: 20}}>latitude: {this.props.latitude}</Text>
-            </View>
-        </View>)
+        return (
+            <Pressable style={styles.centered} onPress={() => this.props.navigation.navigate('details', { points: [this.props.loc] })}>
+                <Image source={img} style={styles.image} />
+                <View>
+                    <Text style={{ color: 'white', fontSize: 20 }}>
+                        longitude: {this.props.loc.coords.longitude}
+                        </Text>
+                    <Text style={{ color: 'white', fontSize: 20 }}>
+                        latitude: {this.props.loc.coords.latitude}
+                        </Text>
+                </View>
+            </Pressable>)
     }
 }
 const styles = StyleSheet.create({
@@ -19,6 +23,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'space-evenly',
         flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 10,
         marginTop: 10,
         backgroundColor: 'rgba(255 255 255 / .07)',
@@ -48,5 +53,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20
     }
-  });
+});
 export default Item;
